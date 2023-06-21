@@ -9,84 +9,94 @@
     <script src="scripts.js" defer></script>
 </head>
 <body>
-    <!--Temperature Conversion Button and Today's Date-->
-    <div class="container">
-        <button class="button" id="temp-convert">F°/C°</button>
-        <p class="date">Thursday, June 15, 2023</p>
+    <div class="main_container">
+        <!--Temperature Conversion Button and Today's Date-->
+        <div class="container temp_container">
+            <button class="button" id="temp-convert">F°/C°</button>
+            <p class="date">Thursday, June 15, 2023</p>
     </div>
 
     <!--Large Current Weather Card-->
-    <div class="container">
-        <div class="card" id="card-one">
-            <div class="search">
-            <input type="text" class="search-bar" placeholder="Search">
-            <button><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1.5em"
-                width="1.5em" xmlns="http://www.w3.org/2000/svg">
-                <path
-                    d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
-                </path>
-                </svg></button>
-            </div>
-            <div class="weather loading">
-                <h2 class="city">Weather in Atlanta as of</h2>
-                <h3 class="time">5:38pm</h3>
-                <button>Refresh</button>
-
-                <h1 class="temp">90.02 °F</h1>
-                <p class="high">91 °F</p>
-                <p class="low">62 °F</p>
-
-                <div class="flex">
-                <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
-                <div class="description">Cloudy</div>
+    <div class="weather_container">
+        <div class="container">
+            <div class="card" id="card-one">
+                <div class="search">
+                    <input type="text" class="search-bar" id="search-bar" placeholder="Search">
+                    <button id="search-btn" onclick="search()"><svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024" height="1.5em"
+                    width="1.5em" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
+                    </path>
+                    </svg></button>
                 </div>
+                <div class="weather_dashboard" id="weather_dashboard">
+                    <h2 class="city">Weather in Atlanta as of</h2>
+                    <h3 class="time">5:38pm</h3>
 
-                <div class="pressure">Pressure: 29.76 in</div>
-                <div class="humidity">Humidity: 91%</div>
+                    <button>Refresh</button>
 
+                    <h1 class="temp">90.02 °F</h1>
+                    <p class="high-low">H:91°F L: 62°F</p>
+
+                    <div class="flex">
+                    <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
+                    <div class="description">Cloudy</div>
+                    </div>
+
+                    <div class="pressure">Pressure: 29.76 in</div>
+                    <div class="humidity">Humidity: 91%</div>
+
+                </div>
             </div>
         </div>
     </div>
 
     <!--Smaller Current Weather Elements-->
-    <div class="container">
-        <div class="card" id="card-two">
-            <div class="sunrise">Sunrise: 1586487424</div>
-            <div class="sunset">Sunset: 1586538297</div>
-            <img class="half-sun" alt="sun image">
+    <div class="container sun_loading">
+        <div class="box_container">
+            <div class="card box_card" id="card-two">
+                <div class="sunrise">Sunrise: 1586487424</div>
+                <br/>
+                <div class="sunset">Sunset: 1586538297</div>
+                <img class="half-sun" alt="sun image">
+            </div>
+            <div class="card box_card" id="card-three">
+                <div class="element" id="airQI">Air Quality Index: GOOD</div>
+            </div>
         </div>
-        <div class="card" id="card-three">
-            <div class="element" id="airQI">Air Quality Index: GOOD</div>
-        </div>
-        <div class="card" id="card-four">
-            <div class="element" id="UVI"> UV-Index
-                <div class="data">GOOD</div>
-            </div> 
-        </div>
-        <div class="card" id="card-five">
-            <div class="element" id="wind">
-                <div class="data" id="wind-speed">Wind Speed: 63.05 mph</div>
-                <div class="data" id="wind-direction">Wind Direction: Northeast?</div>
+        <div class="box_container">
+            <div class="card" id="card-four">
+                <div class="element" id="UVI"> UV-Index
+                    <div class="data">GOOD</div>
+                </div> 
+            </div>
+            <div class="card box_card" id="card-five">
+                <div class="element" id="wind">
+                    <div class="wind-speed">Wind Speed: 63.05 mph</div>
+                    <div class="wind-direction">Wind Direction: 180°</div>
+                </div>
             </div>
         </div>
     </div>
 
     <!--7-Day Forecast and Graph-->
-    <div class="container">
-        <div class="card" id="card-three">
+    <div class="forecast_container">
+        <div class="card forecast_card d3" id="card-three">
             <div class="element" id="week">7-Day Forecast</div>
         </div>
-        <div class="card" id="card-eight">
+        <div class="card forecast_card d3" id="card-eight">
             <div class="wavy-graph">Wavy Graph Goes Here</div>
         </div>
     </div>
 
     <!--24-hr Forecast-->
-    <div class="container">
-        <div class="card" id="card-two">
+    <div class="hourly_container debug4">
+        <div class="card hourly_card d4" id="card-two">
             <div class="element" id="hourly">Hourly Temperature</div>
         </div>
     </div>
+
+</div>
 
   <!--Vanilla tilt.js Library Refer- https://micku7zu.github.io/vanilla-tilt.js/ -->  
   <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
