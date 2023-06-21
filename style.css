@@ -1,80 +1,79 @@
 .main_container{
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-}
-
-.temp_container{
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.weather_container{
-  display: flex;
-  width: 100%;
-  border: 2px solid green;
-  margin-bottom: 3em;
-  justify-content: space-between;
-}
-
-.box_card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 11vh;
-  width: 100%;
-  padding: 1.5em;
-}
-
-.box_container > div  {
-  margin: 2em 0;
-}
-
-.forcast_card, .hourly_card{
-  width: 100%;
-  margin: 1em;
-
-}
-
-.forcast_container{
-  display: flex;
-  align-items: center;
-  margin-bottom: 2em;
-  justify-content: space-between;
-  border: 2px solid yellow;
-}
-
-.hourly_container{
-  display: flex;
-  justify-content: center;
-}
-
-.sun_loading {
-  display: flex;
-  justify-content: space-around;
-}
-
-.sun_loading > div {
-  margin-right: 2em;
-}
-
-.weather_card {
-  padding: 1em;
-}
-
-.forcast_container > div, .hourly_container > div{
-  margin: 0;
-  padding: 2em;
-}
-
-
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
+  
+  .temp_container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .weather_container{
+    display: flex;
+    width: 100%;
+    border: 2px solid green;
+    margin-bottom: 3em;
+    justify-content: space-between;
+  }
+  
+  .box_card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 11vh;
+    width: 100%;
+    padding: 1.5em;
+  }
+  
+  .box_container > div  {
+    margin: 2em 0;
+  }
+  
+  .forecast_card, .hourly_card{
+    width: 100%;
+    margin: 1em;
+  
+  }
+  
+  .forecast_container{
+    display: flex;
+    align-items: center;
+    margin-bottom: 2em;
+    justify-content: space-between;
+    border: 2px solid yellow;
+  }
+  
+  .hourly_container{
+    display: flex;
+    justify-content: center;
+  }
+  
+  .sun_loading {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .sun_loading > div {
+    margin-right: 2em;
+  }
+  
+  .weather_card {
+    padding: 1em;
+  }
+  
+  .forecast_container > div, .hourly_container > div{
+    margin: 0;
+    padding: 2em;
+  }
+  
 body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 1050px;
     margin: 0;
     font-family: 'Open Sans', sans-serif;
     background: #222;
@@ -87,8 +86,14 @@ body {
   }
 
   .container {
-    width: 100%
-  }
+    width: 100%;
+    /*display: grid;
+    grid-template-columns: 1fr;
+    align-items: left;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 10%;*/
+}
 
   .card {
     background: rgba( 0, 0, 0, 0.30 );
@@ -98,8 +103,21 @@ body {
     border-radius: 10px;
     border: 1px solid rgba( 255, 255, 255, 0.18 );
     color: white;
+    /*padding: 2em;
     border-radius: 30px;
+    width: 100%;
+    max-width: 420px;
+    margin: 1em;
+    overflow: hidden;*/
   }
+
+  /*.inner-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-gap: 10px; Adds spacing between cards (adjust as needed) */
+    /*grid-row-gap: 10px; /* might not need this line- I'm about to test it out */
+    /*grid-column-gap: 90px;
+  }*/
 
   .search {
     display: flex;
@@ -166,6 +184,18 @@ body {
     left: 20px;
   }
 
+  /*
+  .sunrise {
+    text-transform: capitalize;
+    margin-left: 8px;
+  }
+  
+  .sunset {
+    text-transform: capitalize;
+    margin-left: 8px;
+  }
+*/
+
   .js-tilt-glare {
     border-radius: 10px;
   }
@@ -223,5 +253,4 @@ body {
     }
 
   }
-
 
