@@ -5,14 +5,22 @@ function search(){
     updateSun(inputText);
 
 }
+/**
+ * The function fetches weather data for a given city using the OpenWeatherMap API.
+ * @param city - The name of the city for which you want to fetch weather data.
+ * @returns The function `fetchWeatherData` returns a Promise that resolves to the weather data for the
+ * specified city in JSON format.
+ */
 async function fetchWeatherData(city) {
     const apiKey = 'dab3d1327e88d079912bdd2ae64e52b5';
     const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
     const response = await fetch(url);
+/* `const data = await response.json();` is converting the response from the OpenWeatherMap API into
+JSON format and assigning it to the `data` variable. This allows us to easily access and manipulate
+the data in our JavaScript code. */
     const data = await response.json();
     return data
 }
-
 
 
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+    
+    <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +12,18 @@
 
 <body>
     <div class="main_container">
+        
+        
         <!--Temperature Conversion Button and Today's Date-->
+     
         <div class="container temp_container">
+
             <button class="button" id="temp-convert">F°/C°</button>
             <p class="date">Thursday, June 15, 2023</p>
         </div>
-
+        
         <!--Large Current Weather Card-->
+        <div id="test-div">
         <div class="weather_container">
             <div class="container">
                 <div class="weather_card card" id="card-one">
@@ -51,7 +56,6 @@
                     </div>
                 </div>
             </div>
-
             <!--Smaller Current Weather Elements-->
             <div class="container sun_loading">
                 <div class="box_container">
@@ -87,23 +91,24 @@
             </div>
         </div>
 
-        <!--7-Day Forecast and Graph-->
-        <div class="forecast_container">
-            <div class="card forecast_card d3" id="card-three">
-                <div class="element" id="week">7-Day Forecast</div>
+               <!--7-Day Forecast and Graph-->
+               <div class="forecast_container">
+                   <div class="card forecast_card d3" id="card-three">
+                       <div class="element" id="week"></div>
+                    </div>
+                    <div class="card forecast_card d3" id="card-eight">
+                        <div class="wavy-graph">Wavy Graph Goes Here</div>
+                    </div>
+                </div>
+                
+                <!--24-hr Forecast-->
+            <div class="hourly_container debug4">
+                <div class="card hourly_card d4" id="card-two">
+                    <div class="element" id="hourly">Hourly Temperature</div>
+                </div>
             </div>
-            <div class="card forecast_card d3" id="card-eight">
-                <div class="wavy-graph">Wavy Graph Goes Here</div>
-            </div>
-        </div>
-
-        <!--24-hr Forecast-->
-        <div class="hourly_container debug4">
-            <div class="card hourly_card d4" id="card-two">
-                <div class="element" id="hourly">Hourly Temperature</div>
-            </div>
-        </div>
-
+        </div> 
+            
     </div>
 
     <!--Vanilla tilt.js Library Refer- https://micku7zu.github.io/vanilla-tilt.js/ -->
@@ -117,7 +122,8 @@
             "max-glare": 0.5,
         });
     </script>
-
+ 
+ 
 </body>
 
 </html>
