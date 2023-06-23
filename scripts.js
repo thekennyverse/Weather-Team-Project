@@ -91,46 +91,68 @@ function getWeatherObj(weatherType) {
     switch (weatherType) {
       case "Clear":
         obj.className = "weather-sunny";
+        obj.icon = "https://openweathermap.org/img/wn/01d.png"
         break;
+      case "Partly Sunny": // falls under the description: few clouds
+        obj.className = "weather-partly-sunny";
+        obj.icon = "https://openweathermap.org/img/wn/02d.png"
       case "Clouds":
         obj.className = "weather-cloudy";
         obj.icon = "https://openweathermap.org/img/wn/04n.png"
         break;
-      case "Rain":
+      case "Rain": // light, moderate, heavy intensity, very heavy, & extreme rain
         obj.className = "weather-rainy";
+        obj.icon = "https://openweathermap.org/img/wn/10d.png"
         break;
+      case "Freezing Rain": // this might be the same thing as Sleet
+        obj.className = "weather-freezing-rain";
+        obj.icon = "https://openweathermap.org/img/wn/13d.png"
+      case "Shower Rain": //light & heavy intensity, ragged, shower rain
+        obj.className = "weather-shower-rain";
+        obj.icon = "https://openweathermap.org/img/wn/09d.png"
       case "Drizzle":
         obj.className = "weather-drizzle";
+        obj.icon = "https://openweathermap.org/img/wn/09d.png"
         break;
       case "Mist":
         obj.className = "weather-mist";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Smoke":
         obj.className = "weather-smoke";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Haze":
         obj.className = "weather-hazy";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Dust":
         obj.className = "weather-dust";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Fog":
         obj.className = "weather-fog";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Sand":
         obj.className = "weather-sand";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Ash":
         obj.className = "weather-Ash";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Tornado":
         obj.className = "weather-Tornado";
+        obj.icon = "https://openweathermap.org/img/wn/50d.png"
         break;
       case "Snow":
         obj.className = "weather-snowy";
+        obj.icon = "https://openweathermap.org/img/wn/13d.png"
         break;
       case "Thunderstorm":
         obj.className = "weather-thunderstorm";
+        obj.icon = "https://openweathermap.org/img/wn/11d.png"
         break;
       default:
         console.log("weatherType not found, no background provided");
