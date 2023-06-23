@@ -7,15 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    
+    <style>
+        #video-background {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -2;
+        }
+        .content{position: realative;
+            z-index: 5;
+        }
+
+
+
+
+
+      </style>
 </head>
 
 <body>
     <div class="main_container">
-        
+        <video id="video-background" autoplay loop muted>
+            <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">
+        </video>  
         
         <!--Temperature Conversion Button and Today's Date-->
-     
+     <div class = "content">
+
+   
         <div class="container temp_container">
 
             <button class="button" id="temp-convert">F°/C°</button>
@@ -67,9 +88,9 @@
             <div class="container sun_loading">
                 <div class="box_container">
                     <div class="card box_card" id="card-two">
-                        <div class="sunrise">Sunrise: 1586487424</div>
+                        <div id="sunrise">Sunrise: </div>
                         <br/>
-                        <div class="sunset">Sunset: 1586538297</div>
+                        <div id="sunset">Sunset: </div>
                         <img class="half-sun" alt="sun image">
                     </div>
                     <div class="card box_card" id="card-three">
@@ -97,10 +118,12 @@
 
                <!--7-Day Forecast and Graph-->
                <div class="forecast_container">
+            
                    <div class="card forecast_card d3" id="card-three">
                        <div class="element week" id="week">
                         <div class="weekElem">
-                            <h2>Sunday</h2>
+                            <h2><div id="openweathermap-widget-1"></div>
+                                <script src='//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/d3.min.js'></script><script>window.myWidgetParam ? window.myWidgetParam : window.myWidgetParam = [];  window.myWidgetParam.push({id: 1,cityid: '4180439',appid: 'dab3d1327e88d079912bdd2ae64e52b5',units: 'metric',containerid: 'openweathermap-widget-1',  });  (function() {var script = document.createElement('script');script.async = true;script.charset = "utf-8";script.src = "//openweathermap.org/themes/openweathermap/assets/vendor/owm/js/weather-widget-generator.js";var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(script, s);  })();</script></h2>
                             <img src=""/>
                             <h4>78 °F</h4>
                         </div>
@@ -122,8 +145,9 @@
                     <div class="element" id="hourly">Hourly Temperature</div>
                 </div>
             </div>
+        </div>
         </div> 
-            
+     
     </div>
 
     <!--Vanilla tilt.js Library Refer- https://micku7zu.github.io/vanilla-tilt.js/ -->
