@@ -22,6 +22,7 @@ background-color: purple !important;
     display: flex;
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 3em;
   }
   
   .weather_container{
