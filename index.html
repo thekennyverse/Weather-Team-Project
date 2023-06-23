@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js" defer></script>
+    
 </head>
 
 <body>
@@ -37,13 +37,20 @@
                                 </path>
                             </svg></button>
                     </div>
+                    <!-- This is creating a section of the webpage that displays the current weather
+                    information for Atlanta. It includes the city name, the current time, the
+                    current temperature in Fahrenheit, the high and low temperatures for the day, an
+                    icon representing the weather condition, the pressure, and the humidity. -->
                     <div class="weather_dashboard" id="weather_dashboard">
                         <h2 class="city">Weather in Atlanta as of</h2>
                         <h3 class="time">5:38pm</h3>
                         <h1 class="temp">90.02 °F</h1>
-                        <p class="high">High: 91 °F</p>
-                        <p class="low">Low: 62 °F</p>
+                        <p class="high">91 °F</p>
+                        <p class="low">62 °F</p>
 
+                        <!-- The `<button>Refresh</button>` is creating a button element with the text
+                        "Refresh" displayed on it. It is not currently linked to any functionality
+                        or event listener in the provided code. -->
                         <button>Refresh</button>
 
                         <div class="flex">
@@ -91,7 +98,18 @@
                <!--7-Day Forecast and Graph-->
                <div class="forecast_container">
                    <div class="card forecast_card d3" id="card-three">
-                       <div class="element" id="week"></div>
+                       <div class="element week" id="week">
+                        <div class="weekElem">
+                            <h2>Sunday</h2>
+                            <img src=""/>
+                            <h4>78 °F</h4>
+                        </div>
+                        <div>
+                            <h2>Monday</h2>
+                            <img src=""/>
+                            <h4>78 °F</h4>
+                        </div>
+                       </div>
                     </div>
                     <div class="card forecast_card d3" id="card-eight">
                         <div class="wavy-graph">Wavy Graph Goes Here</div>
@@ -119,6 +137,7 @@
             "max-glare": 0.5,
         });
     </script>
+    <script src="scripts.js"></script>
  
  
 </body>

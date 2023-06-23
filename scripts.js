@@ -1,9 +1,9 @@
-function search(){
+async function search(){
     var inputText = document.getElementById('search-bar').value;
     console.log(inputText)
-    updateWeather(inputText);
-    updateSun(inputText);
-
+    // updateWeather(inputText);
+    // updateSun(inputText);
+    await updateForecast(inputText);
 }
 /**
  * The function fetches weather data for a given city using the OpenWeatherMap API.
@@ -23,7 +23,30 @@ the data in our JavaScript code. */
 }
 
 
+/**
+ * The function fetches weather data for a given city using the OpenWeatherMap API.
+ * @param city - The name of the city for which you want to fetch weather data.
+ * @returns The function `fetchWeatherData` returns a Promise that resolves to the weather data for the
+ * specified city in JSON format.
+ */
+async function fetchForecastData(city) {
+  const apiKey = 'dab3d1327e88d079912bdd2ae64e52b5';
+  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=3&appid=${apiKey}`;
+  const response = await fetch(url);
+/* `const data = await response.json();` is converting the response from the OpenWeatherMap API into
+JSON format and assigning it to the `data` variable. This allows us to easily access and manipulate
+the data in our JavaScript code. */
+  const data = await response.json();
+  return data
+}
 
+
+
+/**
+ * The function updates the weather dashboard with data fetched from an API based on the input text.
+ * @param inputText - The inputText parameter is a string that represents the city name or zip code
+ * entered by the user to get the weather information.
+ */
 async function updateWeather(inputText) {
     const data = await fetchWeatherData(inputText);
     console.log(data);
@@ -48,14 +71,46 @@ async function updateWeather(inputText) {
         <div class="pressure">Pressure: 29.76 in</div>
         <div class="humidity">Humidity: 91%</div>
     `;
+}
 
 
+async function updateForecast(inputText){
+
+  const forecast = document.getElementById('week');
+  const data = await fetchForecastData(inputText);
 
 
+  console.log(data.list.length)
 
+  const forecastList = data.list.map((element) => {
+    const day = convertDay(element.dt);
+    const temp = element.main.temp.toPrecision(2);
+    const icon = `https://openweathermap.org/img/wn/${element.weather[0].icon}.png`;
+    return { day, temp, icon };
 
-
+  }).filter((obj, index, self) => {
+    // Use a temporary Set to keep track of unique values
+    const values = new Set(self.map((item) => item.day));
     
+    // Filter out objects with duplicate "day" values
+    return values.has(obj.day);
+  }).map((element) => {
+      return`
+      <div class="weekElem">
+        <h2>${element.day}</h2>
+        <img src=${element.icon}>
+        <h4>${element.temp}°F</h4>
+      </div>
+      `
+  }).join("");
+
+
+
+
+  console.log(forecastList);
+  
+  forecast.innerHTML = forecastList
+
 }
 
 
@@ -79,7 +134,16 @@ function convertTime(dt){
     let strTime = hours + ':' + minutes + ' ' + suffix;
 
     return strTime;
+}
 
+
+function convertDay(dt) {
+  let milliseconds = dt * 1000;
+  const date = new Date(milliseconds);
+
+  let dayOfWeek = date.toLocaleDateString('en-US', { weekday: 'long' });
+
+  return dayOfWeek;
 }
 
 function getWeatherObj(weatherType) {
@@ -88,6 +152,13 @@ function getWeatherObj(weatherType) {
         icon: ""
     }
 
+    /* The `switch` statement is checking the value of the `weatherType` variable and based on its
+    value, it is assigning a corresponding CSS class to the `obj.className` property. This is used
+    to dynamically change the background image of the weather dashboard based on the weather type.
+    For example, if the `weatherType` is "Clear", the `obj.className` is set to "weather-sunny",
+    which will change the background image to a sunny day. Similarly, if the `weatherType` is
+    "Clouds", the `obj.className` is set to "weather-cloudy", which will change the background image
+    to a cloudy day. */
     switch (weatherType) {
       case "Clear":
         obj.className = "weather-sunny";
