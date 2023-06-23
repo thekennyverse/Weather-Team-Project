@@ -256,7 +256,7 @@ body {
       margin-right: 1em;
     }
 
-    .forcast_container > div, .hourly_container > div{
+    .forecast_container > div, .hourly_container > div{
       padding: 2em;
       border: 2px solid cyan;
       text-align: center;
