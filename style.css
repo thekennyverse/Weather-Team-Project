@@ -1,8 +1,15 @@
+/* This CSS code is defining the styling for a container with the class "main_container". It is setting
+the display property to "flex" and the flex-direction property to "column", which means that the
+container's child elements will be arranged vertically. The width is set to 80% of the parent
+element's width, and the position is set to "relative". */
 .main_container{
+  margin-top: 25%;
     display: flex;
     flex-direction: column;
     width: 80%;
     position:relative
+
+    
   }
 
   #widget{

@@ -24,6 +24,11 @@ the data in our JavaScript code. */
 
 
 
+/**
+ * The function updates the weather dashboard with data fetched from an API based on the input text.
+ * @param inputText - The inputText parameter is a string that represents the city name or zip code
+ * entered by the user to get the weather information.
+ */
 async function updateWeather(inputText) {
     const data = await fetchWeatherData(inputText);
     console.log(data);
@@ -88,6 +93,13 @@ function getWeatherObj(weatherType) {
         icon: ""
     }
 
+    /* The `switch` statement is checking the value of the `weatherType` variable and based on its
+    value, it is assigning a corresponding CSS class to the `obj.className` property. This is used
+    to dynamically change the background image of the weather dashboard based on the weather type.
+    For example, if the `weatherType` is "Clear", the `obj.className` is set to "weather-sunny",
+    which will change the background image to a sunny day. Similarly, if the `weatherType` is
+    "Clouds", the `obj.className` is set to "weather-cloudy", which will change the background image
+    to a cloudy day. */
     switch (weatherType) {
       case "Clear":
         obj.className = "weather-sunny";
