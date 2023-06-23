@@ -69,8 +69,16 @@ background-color: purple !important;
     margin: 2em;
     justify-content: space-between;
     border: 2px solid yellow;
-    
   }
+
+  .week {
+    display:flex;
+  }
+
+  .weekElem {
+    margin-right: 1em;
+  }
+
   .js-tilt-glare{
     padding: 0px 50px 0px 50px
   }
@@ -81,7 +89,7 @@ background-color: purple !important;
   
   .sun_loading {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
   }
   
   .sun_loading > div {
@@ -247,7 +255,10 @@ body {
     }
 
     .sun_loading{
-      justify-content: center;
+
+
+
+      justify-content: center !important;
       border: 2px solid magenta;
       align-items: center;
       text-align: center;
@@ -256,6 +267,12 @@ body {
       margin-right: 5em !important;
       align-items: center;
       border: 2px solid black;
+
+
+      margin: auto;
+      width: 50%;
+      border: 3px solid green;
+      padding: 10px;
     }
 
 
@@ -278,7 +295,7 @@ body {
       background-color: orange !important;
     }
     .sun_loading{
-      justify-content: space-around;
+      justify-content: center !important;
     }
     .forecast_container{
       display:flex;
