@@ -36,7 +36,7 @@
 
     <div class="main_container">
         <video id="video_" class="background-video" autoplay loop muted>
-            <source id="source_" id="video-background" src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4" video autoplay loop muted>
+            <source id="source_" src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4" video autoplay loop muted>
             <!-- <source id="source_" src=" <video id="video-background" autoplay loop muted>
                 <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">" type="video/mp4"> -->
         </video>  
@@ -96,11 +96,10 @@
             <div class="container sun_loading">
                 <div class="box_container">
                     <div class="card box_card" id="card-two">
-                        <div id="sunrise">Sunrise: </div>
+                        <div id="sunrise" class="sunrise">Sunrise: 7:02am</div>
                         <br/>
-                        <div id="sunset">Sunset: </div>
-                        <img class="half-sun" alt="sun image" src="https://openweathermap.org/img/wn/01d.png">
-
+                        <div id="sunset" class="sunset">Sunset: 5:30pm</div>
+                        <img class="sun-img" alt="sun image" src="noun-sunset-172958.svg">
                     </div>
                     <div class="card box_card" id="card-three">
                         <div class="element" id="vis">Visibilty</div>
@@ -168,7 +167,6 @@
         });
     </script>
     <script src="scripts.js"></script>
- 
  
 </body>
 

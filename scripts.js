@@ -190,7 +190,7 @@ function getWeatherObj(weatherType) {
     case "Mist":
       obj.className = "weather-mist";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
-      obj.video = "./weathervids/drizzle.mp4";
+      obj.video = "./weathervids/haze.mp4";
       break;
     case "Smoke":
       obj.className = "weather-smoke";
