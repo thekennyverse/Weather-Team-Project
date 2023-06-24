@@ -1,25 +1,53 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    <script src="scripts.js" defer></script>
+    <style>
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Ensure the background video container is behind other elements */
+        }
+
+        .background-video video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .content {
+            position: realative;
+            z-index: 5;
+        }
+    </style>
 </head>
 
 <body>
+
     <div class="main_container">
-        
+        <video id="video_" class="background-video" autoplay loop muted>
+            <source id="source_" src=" <video id="video-background" autoplay loop muted>
+                <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">" type="video/mp4">
+        </video>  
         
         <!--Temperature Conversion Button and Today's Date-->
-     
+     <div class = "content">
+
+   
         <div class="container temp_container">
 
             <button class="button" id="temp-convert">F°/C°</button>
-            <p class="date">Thursday, June 15, 2023</p>
+            <p class="date">Saturday, June 24, 2023</p>
         </div>
         
         <!--Large Current Weather Card-->
@@ -37,13 +65,20 @@
                                 </path>
                             </svg></button>
                     </div>
+                    <!-- This is creating a section of the webpage that displays the current weather
+                    information for Atlanta. It includes the city name, the current time, the
+                    current temperature in Fahrenheit, the high and low temperatures for the day, an
+                    icon representing the weather condition, the pressure, and the humidity. -->
                     <div class="weather_dashboard" id="weather_dashboard">
                         <h2 class="city">Weather in Atlanta as of</h2>
                         <h3 class="time">5:38pm</h3>
                         <h1 class="temp">90.02 °F</h1>
-                        <p class="high">High: 91 °F</p>
-                        <p class="low">Low: 62 °F</p>
+                        <p class="high">91 °F</p>
+                        <p class="low">62 °F</p>
 
+                        <!-- The `<button>Refresh</button>` is creating a button element with the text
+                        "Refresh" displayed on it. It is not currently linked to any functionality
+                        or event listener in the provided code. -->
                         <button>Refresh</button>
 
                         <div class="flex">
@@ -66,13 +101,13 @@
                         <img class="sun-img" alt="sun image" src="noun-sunset-172958.svg">
                     </div>
                     <div class="card box_card" id="card-three">
-                        <div class="element" id="airQI">Air Quality Index: GOOD</div>
+                        <div class="element" id="vis">Visibilty</div>
                     </div>
                 </div>
                 <div class="box_container">
                     <div class="card box_card" id="card-four">
-                        <div class="element" id="UVI"> UV-Index
-                            <div class="data">GOOD</div>
+                        <div class="element" id="tz"> Timezone
+                           
                         </div>
                     </div>
                     <div class="card box_card" id="card-five">
@@ -90,11 +125,21 @@
 
                <!--7-Day Forecast and Graph-->
                <div class="forecast_container">
+            
                    <div class="card forecast_card d3" id="card-three">
-                       <div class="element" id="week"></div>
-                    </div>
-                    <div class="card forecast_card d3" id="card-eight">
-                        <div class="wavy-graph">Wavy Graph Goes Here</div>
+                       <div class="element week" id="week">
+                        <div class="weekElem">
+                            <h2><div id="openweathermap-widget-1"></div>
+                
+                            <img src=""/>
+                            <h4>78 °F</h4>
+                        </div>
+                        <div>
+                            <h2>Monday</h2>
+                            <img src=""/>
+                            <h4>78 °F</h4>
+                        </div>
+                       </div>
                     </div>
                 </div>
                 
@@ -104,8 +149,9 @@
                     <div class="element" id="hourly">Hourly Temperature</div>
                 </div>
             </div>
+        </div>
         </div> 
-            
+     
     </div>
 
     <!--Vanilla tilt.js Library Refer- https://micku7zu.github.io/vanilla-tilt.js/ -->
@@ -119,6 +165,7 @@
             "max-glare": 0.5,
         });
     </script>
+    <script src="scripts.js"></script>
  
 </body>
 
