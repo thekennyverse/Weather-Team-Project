@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
+
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        #video-background {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          z-index: -2;
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            /* Ensure the background video container is behind other elements */
         }
-        .content{position: realative;
+
+        .background-video video {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+
+        .content {
+            position: realative;
             z-index: 5;
         }
-
-
-
-
-
-      </style>
+    </style>
 </head>
 
 <body>
+
     <div class="main_container">
-        <video id="video-background" autoplay loop muted>
-            <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">
+        <video id="video_" class="background-video" autoplay loop muted>
+            <source id="source_" src=" <video id="video-background" autoplay loop muted>
+                <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">" type="video/mp4">
         </video>  
         
         <!--Temperature Conversion Button and Today's Date-->
@@ -94,13 +101,13 @@
                         <img class="half-sun" alt="sun image">
                     </div>
                     <div class="card box_card" id="card-three">
-                        <div class="element" id="airQI">Air Quality Index: GOOD</div>
+                        <div class="element" id="vis">Visibilty</div>
                     </div>
                 </div>
                 <div class="box_container">
                     <div class="card box_card" id="card-four">
-                        <div class="element" id="UVI"> UV-Index
-                            <div class="data">GOOD</div>
+                        <div class="element" id="tz"> Timezone
+                           
                         </div>
                     </div>
                     <div class="card box_card" id="card-five">
@@ -133,9 +140,6 @@
                             <h4>78 °F</h4>
                         </div>
                        </div>
-                    </div>
-                    <div class="card forecast_card d3" id="card-eight">
-                        <div class="wavy-graph">Wavy Graph Goes Here</div>
                     </div>
                 </div>
                 
