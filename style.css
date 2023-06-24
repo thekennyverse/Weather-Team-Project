@@ -3,7 +3,7 @@ the display property to "flex" and the flex-direction property to "column", whic
 container's child elements will be arranged vertically. The width is set to 80% of the parent
 element's width, and the position is set to "relative". */
 .main_container{
-  margin-top: 25%;
+  margin-top: 10%;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -248,6 +248,10 @@ body {
 
   @media (max-width: 1425px) {
 
+    .main_container {
+      margin-top: 25%;
+    }
+    
     .weather_container{
       display: flex;
       width: 100%;
@@ -291,6 +295,10 @@ body {
   }
 
   @media (max-width: 540px) {
+
+    .main_container {
+      margin-top: 50%;
+    }
     .box_card{
       padding: .75em;
       margin: 0;
