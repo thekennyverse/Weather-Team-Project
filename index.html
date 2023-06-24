@@ -147,7 +147,14 @@
                 <!--24-hr Forecast-->
             <div class="hourly_container debug4">
                 <div class="card hourly_card d4" id="card-two">
-                    <div class="element" id="hourly">Hourly Temperature</div>
+                    
+                   
+                    <!-- <div class="element" id="hourly">Hourly Temperature</div> -->
+                    
+                    <div class = "graph">
+                        <canvas id="hourlyGraph" > </canvas>
+                    </div>
+                     <!-- ------------------------    -->
                 </div>
             </div>
         </div>
@@ -166,8 +173,43 @@
             "max-glare": 0.5,
         });
     </script>
+  
+   
+  
+
+
+
+<!-- //Graph script  -->
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+ <script src="
+https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js
+"></script>
+ <script>
+  const ctx = document.getElementById('hourlyGraph');
+
+  new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['0-3','3-6', '6-9', '9-12', '12-15', '15-18','18-19', '20-23'],
+    datasets: [{
+    label: 'Temperature fluctuations',
+    data: [65, 63, 63, 69, 71, 76, 82, 74],
+    fill: false,
+    borderColor: 'rgb(245, 123, 39)',
+    tension: 0.1,
+    }]
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+
+ </script>
     <script src="scripts.js"></script>
- 
 </body>
 
 </html>
