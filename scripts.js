@@ -18,6 +18,11 @@ async function fetchWeatherData(city) {
   return data;
 }
 
+/* This function is fetching forecast weather data for a given city using the OpenWeatherMap API. It
+takes in a city parameter, constructs a URL with the city and API key, and then uses the `fetch()`
+method to make a GET request to the API. It then waits for the response to come back using the
+`await` keyword, and then parses the response data into JSON format using the `response.json()`
+method. Finally, it returns the parsed data. */
 async function fetchForecastData(city) {
   const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
   const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=56&appid=${apiKey}`;
@@ -50,6 +55,7 @@ async function updateWeather(inputText) {
       <div class="pressure">Pressure: 29.76 in</div>
       <div class="humidity">Humidity: 91%</div>
   `;
+
   const weathernow = await fetchForecastData(inputText);
   console.log(weathernow);
   const sunrise = document.getElementById("sunrise");
@@ -60,6 +66,7 @@ async function updateWeather(inputText) {
   const timezone = document.getElementById('tz');
   const videoElement = document.getElementById("video_");
   const sourceElement = document.getElementById("source_");
+  
 
   const sunSetTime = convertTime(weathernow.city.sunset);
   const sunRiseTime = convertTime(weathernow.city.sunrise);
@@ -75,6 +82,9 @@ async function updateWeather(inputText) {
 
   console.log("obj",obj);
  
+/* These lines of code are setting the source of a video element to the URL of a video file based on
+the weather type, loading the video, and playing it. This is used to display a background video that
+corresponds to the current weather conditions. */
 
   sourceElement.setAttribute("src", obj.video);
   videoElement.load();
@@ -153,63 +163,79 @@ function getWeatherObj(weatherType) {
     case "Partly Sunny": // falls under the description: few clouds
       obj.className = "weather-partly-sunny";
       obj.icon = "https://openweathermap.org/img/wn/02d.png";
+      obj.video = "./weathervids/partlysunny.mp4";
     case "Clouds":
       obj.className = "weather-cloudy";
       obj.icon = "https://openweathermap.org/img/wn/04n.png";
+      obj.video = "./weathervids/cloudy.mp4";
       break;
     case "Rain": // light, moderate, heavy intensity, very heavy, & extreme rain
       obj.className = "weather-rainy";
       obj.icon = "https://openweathermap.org/img/wn/10d.png";
+      obj.video = "./weathervids/rainy.mp4";
       break;
     case "Freezing Rain": // this might be the same thing as Sleet
       obj.className = "weather-freezing-rain";
       obj.icon = "https://openweathermap.org/img/wn/13d.png";
+      obj.video = "./weathervidsfreezerain.mp4";
     case "Shower Rain": //light & heavy intensity, ragged, shower rain
       obj.className = "weather-shower-rain";
       obj.icon = "https://openweathermap.org/img/wn/09d.png";
+      obj.video = "./weathervids/rainy.mp4";
     case "Drizzle":
       obj.className = "weather-drizzle";
       obj.icon = "https://openweathermap.org/img/wn/09d.png";
+      obj.video = "./weathervids/drizzle.mp4";
       break;
     case "Mist":
       obj.className = "weather-mist";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/mist.mp4";
       break;
     case "Smoke":
       obj.className = "weather-smoke";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/smoke.mp4";
       break;
     case "Haze":
       obj.className = "weather-hazy";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/haze.mp4";
       break;
     case "Dust":
       obj.className = "weather-dust";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/Dust.mp4";
       break;
     case "Fog":
       obj.className = "weather-fog";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/fog.mp4";
       break;
     case "Sand":
       obj.className = "weather-sand";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/Dust.mp4";
       break;
     case "Ash":
       obj.className = "weather-Ash";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/haze.mp4";
       break;
     case "Tornado":
       obj.className = "weather-Tornado";
       obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.video = "./weathervids/tornado.mp4";
       break;
     case "Snow":
       obj.className = "weather-snowy";
       obj.icon = "https://openweathermap.org/img/wn/13d.png";
+      obj.video = "./weathervids/snow.mp4";
       break;
     case "Thunderstorm":
       obj.className = "weather-thunderstorm";
       obj.icon = "https://openweathermap.org/img/wn/11d.png";
+      obj.video = "./weathervids/thunderstorm.mp4";
       break;
     default:
       console.log("weatherType not found, no background provided");

@@ -18,9 +18,9 @@ element's width, and the position is set to "relative". */
     z-index:156156165 !important
   }
 
-.box_card:hover {
-background-color: purple !important;
-  }
+/* .box_card:hover {
+background-color: purple !important; */
+  /* } */
   #test-div{
     display:flex;
     flex-direction: row;
@@ -35,7 +35,7 @@ background-color: purple !important;
   .weather_container{
     display: flex;
     width: 100%;
-    border: 2px solid green;
+    
     margin-bottom: 3em;
     justify-content: space-between;
   }
@@ -68,7 +68,7 @@ background-color: purple !important;
     
     margin: 2em;
     justify-content: space-between;
-    border: 2px solid yellow;
+    
   }
 
   .week {
@@ -253,7 +253,7 @@ body {
       width: 100%;
       justify-content: space-between;
       flex-direction: column;
-      border: 2px solid green;
+      ;
     }
 
     .sun_loading{
@@ -261,7 +261,7 @@ body {
 
 
       justify-content: center !important;
-      border: 2px solid magenta;
+  
       align-items: center;
       text-align: center;
     }
@@ -273,7 +273,7 @@ body {
 
       margin: auto;
       width: 50%;
-      border: 3px solid green;
+      
       padding: 10px;
     }
 
@@ -294,7 +294,7 @@ body {
     .box_card{
       padding: .75em;
       margin: 0;
-      background-color: orange !important;
+     
     }
     .sun_loading{
       justify-content: center !important;
