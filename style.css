@@ -3,13 +3,12 @@ the display property to "flex" and the flex-direction property to "column", whic
 container's child elements will be arranged vertically. The width is set to 80% of the parent
 element's width, and the position is set to "relative". */
 .main_container {
-  margin-top: 25%;
+  margin-top: 10%;
   display: flex;
   flex-direction: column;
   width: 80%;
   position: relative;
 }
-
 .graph {
   margin: auto;
   width: 60%;
@@ -226,8 +225,7 @@ h1.temp {
   left: 20px;
 }
 
-/*
-  .sunrise {
+/*.sunrise {
     text-transform: capitalize;
     margin-left: 8px;
   }
@@ -235,8 +233,14 @@ h1.temp {
   .sunset {
     text-transform: capitalize;
     margin-left: 8px;
-  }
-*/
+  }*/
+
+.sun-img {
+  width: auto;
+  height: 10em;
+  position: absolute;
+  top: 1px;
+}
 
 .js-tilt-glare {
   border-radius: 10px;
@@ -300,5 +304,65 @@ a {
     flex-direction: column;
     text-align: center;
     align-items: center;
+  }
+
+  @media (max-width: 1425px) {
+    .main_container {
+      margin-top: 25%;
+    }
+
+    .weather_container {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      flex-direction: column;
+    }
+
+    .sun_loading {
+      justify-content: center !important;
+
+      align-items: center;
+      text-align: center;
+    }
+    .box_container {
+      margin-right: 5em !important;
+      align-items: center;
+      border: 2px solid black;
+
+      margin: auto;
+      width: 50%;
+
+      padding: 10px;
+    }
+
+    .sun_loading > div {
+      margin-right: 1em;
+    }
+
+    .forecast_container > div,
+    .hourly_container > div {
+      padding: 2em;
+      border: 2px solid cyan;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .main_container {
+      margin-top: 50%;
+    }
+    .box_card {
+      padding: 0.75em;
+      margin: 0;
+    }
+    .sun_loading {
+      justify-content: center !important;
+    }
+    .forecast_container {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+      align-items: center;
+    }
   }
 }
