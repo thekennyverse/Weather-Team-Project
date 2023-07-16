@@ -66,29 +66,24 @@
                                 </path>
                             </svg></button>
                     </div>
-                    <!-- This is creating a section of the webpage that displays the current weather
-                    information for Atlanta. It includes the city name, the current time, the
-                    current temperature in Fahrenheit, the high and low temperatures for the day, an
-                    icon representing the weather condition, the pressure, and the humidity. -->
+                    
                     <div class="weather_dashboard" id="weather_dashboard">
-                        <h2 class="city">Weather in Atlanta as of</h2>
+                        <h2 class="city"> Hidden Leaf Village As of 5:38pm <button class="refresh">Refresh</button>          </h2>
                         <h3 class="time">5:38pm</h3>
                         <h1 class="temp">90.02 °F</h1>
                         <p class="high">91 °F</p>
                         <p class="low">62 °F</p>
 
-                        <!-- The `<button>Refresh</button>` is creating a button element with the text
-                        "Refresh" displayed on it. It is not currently linked to any functionality
-                        or event listener in the provided code. -->
-                        <button>Refresh</button>
+                        
 
                         <div class="flex">
                             <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
                             <div class="description">Cloudy</div>
                         </div>
 
-                        <div class="pressure">Pressure: 29.76 in</div>
-                        <div class="humidity">Humidity: 91%</div>
+                        <div class="pressure"><strong>Pressure:</strong> 29.76 in</div>
+                       <div class="humidity"><strong>Humidity:</strong> 91%</div>
+
                     </div>
                 </div>
             </div>
@@ -115,7 +110,7 @@
                         <div class="element" id="wind">
                             <div class="data" id="wind-speed">Wind Speed: 63.05 mph</div>
                             <br>
-                            <div class="data" id="wind-direction">Wind Direction: Northeast?</div>
+                            <div class="data" id="wind-direction">Wind Direction: Northeast</div>
                         </div>
                     </div>
                 </div>
@@ -131,82 +126,44 @@
                        <div class="element week" id="week">
                         <div class="weekElem">
                             <h2><div id="openweathermap-widget-1"></div>
+
+                                
+                                
+                                <div class="week-container">
+                                    <div class="day">
+                                        <h2>Monday</h2>
+                                        <p>Temperature: 25°C</p>
+                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Monday Image" />
+                                    </div>
+                                    <div class="day">
+                                        <h2>Tuesday</h2>
+                                        <p>Temperature: 28°C</p>
+                                        <img src="https://openweathermap.org/img/wn/02d.png" alt="Tuesday Image" />
+                                    </div>
+                                    <div class="day">
+                                        <h2>Wednesday</h2>
+                                        <p>Temperature: 30°C</p>
+                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Wednesday Image" />
+                                    </div>
+                                    <div class="day">
+                                        <h2>Thursday</h2>
+                                        <p>Temperature: 27°C</p>
+                                        <img src="https://openweathermap.org/img/wn/02d.png" alt="Thursday Image" />
+                                    </div>
+                                    <div class="day">
+                                        <h2>Friday</h2>
+                                        <p>Temperature: 29°C</p>
+                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Friday Image" />
+                                    </div>
+                                </div>
+                                
+
+
+
+                            
+                        
                 
-                            <img src=""/>
-                            <h4>78 °F</h4>
-                        </div>
-                        <div>
-                            <h2>Monday</h2>
-                            <img src=""/>
-                            <h4>78 °F</h4>
-                        </div>
-                       </div>
-                    </div>
-                </div>
-                
-                <!--24-hr Forecast-->
-            <div class="hourly_container debug4">
-                <div class="card hourly_card d4" id="card-two">
-                    
-                   
-                    <!-- <div class="element" id="hourly">Hourly Temperature</div> -->
-                    
-                    <div class = "graph">
-                        <canvas id="hourlyGraph" > </canvas>
-                    </div>
-                     <!-- ------------------------    -->
-                </div>
-            </div>
-        </div>
-        </div> 
-     
-    </div>
-
-    <!--Vanilla tilt.js Library Refer- https://micku7zu.github.io/vanilla-tilt.js/ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-    <script>
-        VanillaTilt.init(document.querySelectorAll(".card"), {
-            max: 0,
-            speed: 800,
-            scale: 1,
-            glare: true,
-            "max-glare": 0.5,
-        });
-    </script>
-  
-   
-  
-
-
-
-<!-- //Graph script  -->
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
- <script src="
-https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js
-"></script>
- <script>
-  const ctx = document.getElementById('hourlyGraph');
-
-  new Chart(ctx, {
-  type: 'line',
-  data: {
-    labels: ['0-3','3-6', '6-9', '9-12', '12-15', '15-18','18-19', '20-23'],
-    datasets: [{
-    label: 'Temperature fluctuations',
-    data: [65, 63, 63, 69, 71, 76, 82, 74],
-    fill: false,
-    borderColor: 'rgb(245, 123, 39)',
-    tension: 0.1,
-    }]
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true
-      }
-    }
-  }
-});
+            
 
  </script>
     <script src="scripts.js"></script>

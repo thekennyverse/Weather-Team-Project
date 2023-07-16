@@ -1,7 +1,42 @@
-/* This CSS code is defining the styling for a container with the class "main_container". It is setting
-the display property to "flex" and the flex-direction property to "column", which means that the
-container's child elements will be arranged vertically. The width is set to 80% of the parent
-element's width, and the position is set to "relative". */
+.week-container {
+  display: flex;
+}
+
+.day {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid gray;
+}
+
+.weather_dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.details {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.pressure, .humidity {
+  margin-left: 10px;
+}
+
+
+
+
+
+
 .main_container {
   margin-top: 10%;
   display: flex;
