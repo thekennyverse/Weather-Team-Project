@@ -6,7 +6,7 @@
   flex: 1;
   text-align: center;
   padding: 10px;
-  border: 1px solid gray;
+ 
 }
 
 .weather_dashboard {
@@ -151,15 +151,11 @@ body {
   height: 1050px;
   margin: 0;
   font-family: "Open Sans", sans-serif;
-  background: #222;
-  /* background-image: url('https://source.unsplash.com/1600x900/?landscape'); */
-  background-color: #add8e6;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  background: url('/Users/kennyverse/Desktop/myproject/Weather App/Weather-Team-Project/weathervids/background.jpg') center/cover no-repeat;
   font-size: 100%;
   z-index: 0;
 }
+
 
 .container {
   width: 100%;
