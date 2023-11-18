@@ -10,7 +10,7 @@ async function search() {
 */
 async function fetchWeatherData(city) {
   const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
-  const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
   const response = await fetch(url);
 
   const data = await response.json();
@@ -25,7 +25,7 @@ method to make a GET request to the API. It then waits for the response to come 
 method. Finally, it returns the parsed data. */
 async function fetchForecastData(city) {
   const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
-  const url = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=56&appid=${apiKey}`;
+  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=56&appid=${apiKey}`;
   const response = await fetch(url);
 
   const data = await response.json();
