@@ -55,6 +55,8 @@ async function updateWeather(inputText) {
       <div class="pressure">Pressure: 29.76 in</div>
       <div class="humidity">Humidity: 91%</div>
   `;
+  const dateElement = document.querySelector('.date');
+  dateElement.innerText = getCurrentDate();
 
   const weathernow = await fetchForecastData(inputText);
   console.log(weathernow);
@@ -92,6 +94,13 @@ corresponds to the current weather conditions. */
 
 
 }
+// New function to get the current date and time
+function getCurrentDate() {
+  const currentDate = new Date();
+  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  return currentDate.toLocaleDateString('en-US', options);
+}
+
 
 async function updateForecast(inputText) {
   const forecast = document.getElementById("week");
