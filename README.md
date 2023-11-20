@@ -1,7 +1,5 @@
 # Weather-Team-Project  
 
-# Weather Dashboard App Readme
-
 Welcome to our Weather Dashboard App! This project was a collaborative effort, bringing together the skills and expertise of our team. Below, you'll find information on how to use and contribute to this Weather Dashboard App.
 
 
