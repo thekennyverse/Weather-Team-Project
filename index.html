@@ -7,163 +7,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="style.css">
-    <style>
-        .background-video {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 150%;
-            z-index: -1;
-            /* Ensure the background video container is behind other elements */
-        }
-
-        .background-video video {
-            object-fit: fill;
-            width: 200%;
-            height: 200%;
-        }
-
-        .content {
-            position: relative;
-            z-index: 5;
-        }
-    </style>
 </head>
 
 <body>
- 
-    <div class="main_container">
-        <video id="video_" class="background-video" autoplay loop muted>
-            <source id="source_" src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4" video autoplay loop muted>
-            <!-- <source id="source_" src=" <video id="video-background" autoplay loop muted>
-                <source src="https://trello.com/1/cards/6484a8c13159aaf147ffd74d/attachments/6495ce65fa28ec74c23b01c0/download/pexels-mikhail-nilov-8345565-3840x2160-25fps.mp4" type="video/mp4">" type="video/mp4"> -->
-        </video>
-        
-        <!--Temperature Conversion Button and Today's Date-->
-     <div class = "content">
 
-   
+    <video id="video_" class="background-video" autoplay loop muted playsinline>
+        <source id="source_" src="./weathervids/clearsky.mp4" type="video/mp4">
+    </video>
+
+    <div class="main_container content">
+
+        <!--Today's Date-->
         <div class="container temp_container">
-
-            <!-- <button class="button" id="temp-convert">F°/C°</button> -->
             <p class="date"></p>
         </div>
-        
+
         <!--Large Current Weather Card-->
         <div id="test-div">
-        <div class="weather_container">
-            <div class="container">
-                <div class="weather_card card" id="card-one">
-                    <div class="search ">
-                        <input type="text" class="search-bar" id="search-bar" placeholder="Search">
-                        <button id="search-btn" onclick="search()"><svg stroke="currentColor" fill="currentColor"
-                                stroke-width="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
-                                </path>
-                            </svg></button>
-                    </div>
-                    
-                    <div class="weather_dashboard" id="weather_dashboard">
-                        <h2 class="city"> Hidden Leaf Village As of 5:38pm <button class="refresh">Refresh</button>          </h2>
-                        <h3 class="time">5:38pm</h3>
-                        <h1 class="temp">90.02 °F</h1>
-                        <p class="high">91 °F</p>
-                        <p class="low">62 °F</p>
+            <div class="weather_container">
+                <div class="container">
+                    <div class="weather_card card" id="card-one">
+                        <form class="search" id="search-form">
+                            <input type="text" class="search-bar" id="search-bar" placeholder="Search a city" autocomplete="off">
+                            <button type="submit" id="search-btn" aria-label="Search"><svg stroke="currentColor" fill="currentColor"
+                                    stroke-width="0" viewBox="0 0 1024 1024" height="1.5em" width="1.5em"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M909.6 854.5L649.9 594.8C690.2 542.7 712 479 712 412c0-80.2-31.3-155.4-87.9-212.1-56.6-56.7-132-87.9-212.1-87.9s-155.5 31.3-212.1 87.9C143.2 256.5 112 331.8 112 412c0 80.1 31.3 155.5 87.9 212.1C256.5 680.8 331.8 712 412 712c67 0 130.6-21.8 182.7-62l259.7 259.6a8.2 8.2 0 0 0 11.6 0l43.6-43.5a8.2 8.2 0 0 0 0-11.6zM570.4 570.4C528 612.7 471.8 636 412 636s-116-23.3-158.4-65.6C211.3 528 188 471.8 188 412s23.3-116.1 65.6-158.4C296 211.3 352.2 188 412 188s116.1 23.2 158.4 65.6S636 352.2 636 412s-23.3 116.1-65.6 158.4z">
+                                    </path>
+                                </svg></button>
+                        </form>
+                        <p class="error" id="error" hidden></p>
 
-                        
-
-                        <div class="flex">
-                            <img src="https://openweathermap.org/img/wn/04n.png" alt="" class="icon" />
-                            <div class="description">Cloudy</div>
+                        <div class="weather_dashboard" id="weather_dashboard">
+                            <h2 class="city">Search for a city to see the weather</h2>
                         </div>
-
-                        <div class="pressure"><strong>Pressure:</strong> 29.76 in</div>
-                       <div class="humidity"><strong>Humidity:</strong> 91%</div>
-
                     </div>
                 </div>
             </div>
+
             <!--Smaller Current Weather Elements-->
             <div class="container sun_loading">
                 <div class="box_container">
                     <div class="card box_card" id="card-two">
-                        <div id="sunrise" class="sunrise">Sunrise: 7:02am</div>
-                        <br/>
-                        <div id="sunset" class="sunset">Sunset: 5:30pm</div>
-                        <!-- <img class="sun-img" alt="sun image" src="sunset-svgrepo-com.svg"> -->
+                        <div id="sunrise" class="sunrise">Sunrise: --</div>
+                        <br />
+                        <div id="sunset" class="sunset">Sunset: --</div>
                     </div>
                     <div class="card box_card" id="card-three">
-                        <div class="element" id="vis">Visibilty</div>
+                        <div class="element" id="vis">Visibility: --</div>
                     </div>
                 </div>
                 <div class="box_container">
                     <div class="card box_card" id="card-four">
-                        <div class="element" id="tz"> Timezone
-                           
-                        </div>
+                        <div class="element" id="tz">Time Zone: --</div>
                     </div>
                     <div class="card box_card" id="card-five">
                         <div class="element" id="wind">
-                            <div class="data" id="wind-speed">Wind Speed: 63.05 mph</div>
+                            <div class="data" id="wind-speed">Wind Speed: --</div>
                             <br>
-                            <div class="data" id="wind-direction">Wind Direction: Northeast</div>
+                            <div class="data" id="wind-direction">Wind Direction: --</div>
                         </div>
                     </div>
-                </div>
-
                 </div>
             </div>
         </div>
 
-               <!--7-Day Forecast and Graph-->
-               <div class="forecast_container">
-            
-                   <div class="card forecast_card d3" id="card-three">
-                       <div class="element week" id="week">
-                        <div class="weekElem">
-                            <h2><div id="openweathermap-widget-1"></div>
+        <!--5-Day Forecast-->
+        <div class="forecast_container">
+            <div class="card forecast_card" id="card-six">
+                <div class="element week" id="week"></div>
+            </div>
+        </div>
+    </div>
 
-                                
-                                
-                                <div class="week-container">
-                                    <div class="day">
-                                        <h2>Monday</h2>
-                                        <p>Temperature: 25°C</p>
-                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Monday Image" />
-                                    </div>
-                                    <div class="day">
-                                        <h2>Tuesday</h2>
-                                        <p>Temperature: 28°C</p>
-                                        <img src="https://openweathermap.org/img/wn/02d.png" alt="Tuesday Image" />
-                                    </div>
-                                    <div class="day">
-                                        <h2>Wednesday</h2>
-                                        <p>Temperature: 30°C</p>
-                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Wednesday Image" />
-                                    </div>
-                                    <div class="day">
-                                        <h2>Thursday</h2>
-                                        <p>Temperature: 27°C</p>
-                                        <img src="https://openweathermap.org/img/wn/02d.png" alt="Thursday Image" />
-                                    </div>
-                                    <div class="day">
-                                        <h2>Friday</h2>
-                                        <p>Temperature: 29°C</p>
-                                        <img src="https://openweathermap.org/img/wn/01d.png" alt="Friday Image" />
-                                    </div>
-                                </div>
-                                
-
-
-
-                            
-                        
-                
-            
-
- </script>
     <script src="scripts.js"></script>
 </body>
 

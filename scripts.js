@@ -1,253 +1,268 @@
+const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
+const apiBase = "https://api.openweathermap.org/data/2.5";
+
+document.getElementById("search-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  search();
+});
+
 async function search() {
-  var inputText = document.getElementById("search-bar").value;
-  console.log(inputText);
+  const inputText = document.getElementById("search-bar").value.trim();
+  if (!inputText) {
+    showError("Please enter a city name.");
+    return;
+  }
 
-  await updateWeather(inputText);
-  await updateForecast(inputText);
+  showError("");
+  try {
+    // Fetch both at once instead of hitting the forecast endpoint twice.
+    const [weather, forecast] = await Promise.all([
+      fetchWeatherData(inputText),
+      fetchForecastData(inputText),
+    ]);
+    updateWeather(weather, forecast);
+    updateForecast(forecast);
+    try {
+      localStorage.setItem("lastCity", inputText);
+    } catch (e) {
+      // Storage can be unavailable (private mode); remembering the city is optional.
+    }
+  } catch (error) {
+    console.error(error);
+    showError(error.message);
+  }
 }
-/**
 
-*/
-async function fetchWeatherData(city) {
-  const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+function showError(message) {
+  const errorElement = document.getElementById("error");
+  errorElement.innerText = message;
+  errorElement.hidden = !message;
+}
+
+async function fetchJson(url) {
   const response = await fetch(url);
-
-  const data = await response.json();
-  console.log(data);
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    if (response.status === 404) throw new Error("City not found. Check the spelling and try again.");
+    if (response.status === 401) throw new Error("The weather service rejected the API key.");
+    throw new Error(data.message || "Could not load the weather. Please try again.");
+  }
   return data;
 }
 
-/* This function is fetching forecast weather data for a given city using the OpenWeatherMap API. It
-takes in a city parameter, constructs a URL with the city and API key, and then uses the `fetch()`
-method to make a GET request to the API. It then waits for the response to come back using the
-`await` keyword, and then parses the response data into JSON format using the `response.json()`
-method. Finally, it returns the parsed data. */
-async function fetchForecastData(city) {
-  const apiKey = "dab3d1327e88d079912bdd2ae64e52b5";
-  const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=imperial&cnt=56&appid=${apiKey}`;
-  const response = await fetch(url);
-
-  const data = await response.json();
-  return data;
+function fetchWeatherData(city) {
+  return fetchJson(`${apiBase}/weather?q=${encodeURIComponent(city)}&units=imperial&appid=${apiKey}`);
 }
 
-async function updateWeather(inputText) {
-  const data = await fetchWeatherData(inputText);
-  console.log(data);
-  const cityName = data.name;
+/* Fetches the 5-day / 3-hour forecast for a city. The free API returns at most 40 entries. */
+function fetchForecastData(city) {
+  return fetchJson(`${apiBase}/forecast?q=${encodeURIComponent(city)}&units=imperial&appid=${apiKey}`);
+}
+
+function updateWeather(data, forecast) {
   const weatherType = data.weather[0].main;
   const obj = getWeatherObj(weatherType);
+  const tzOffset = data.timezone;
 
   const weather_dashboard = document.getElementById("weather_dashboard");
   weather_dashboard.innerHTML = `
-      <h2 class="city">${cityName}</h2>
-      <h3 class="time">As of ${convertTime(data.dt)}</h3>
-      <h1 class="temp">${data.main.temp} °F</h1>
-      <p class="high">91 °F</p>
-      <p class="low">62 °F</p>
+      <h2 class="city">${escapeHtml(data.name)}, ${escapeHtml(data.sys.country || "")}</h2>
+      <h3 class="time">As of ${convertTime(data.dt, tzOffset)}</h3>
+      <h1 class="temp">${Math.round(data.main.temp)} °F</h1>
+      <p class="feels">Feels like ${Math.round(data.main.feels_like)} °F</p>
+      <p class="high">High: ${Math.round(data.main.temp_max)} °F</p>
+      <p class="low">Low: ${Math.round(data.main.temp_min)} °F</p>
 
       <div class="flex">
-          <img src=${obj.icon} alt="" class="icon" />
-          <div class="description">${weatherType}</div>
+          <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${escapeHtml(weatherType)}" class="icon" />
+          <div class="description">${escapeHtml(data.weather[0].description)}</div>
       </div>
 
-      <div class="pressure">Pressure: 29.76 in</div>
-      <div class="humidity">Humidity: 91%</div>
+      <div class="pressure"><strong>Pressure:</strong> ${(data.main.pressure * 0.02953).toFixed(2)} in</div>
+      <div class="humidity"><strong>Humidity:</strong> ${data.main.humidity}%</div>
   `;
-  const dateElement = document.querySelector('.date');
-  dateElement.innerText = getCurrentDate();
 
-  const weathernow = await fetchForecastData(inputText);
-  console.log(weathernow);
-  const sunrise = document.getElementById("sunrise");
-  const sunset = document.getElementById("sunset");
-  const windSpeed = document.getElementById("wind-speed");
-  const windDirection = document.getElementById("wind-direction");
-  const visibility = document.getElementById("vis");
-  const timezone = document.getElementById('tz');
+  document.querySelector(".date").innerText = getCurrentDate(tzOffset);
+
+  const sunrise = data.sys.sunrise || forecast.city.sunrise;
+  const sunset = data.sys.sunset || forecast.city.sunset;
+  document.getElementById("sunrise").innerText = `Sunrise: ${convertTime(sunrise, tzOffset)}`;
+  document.getElementById("sunset").innerText = `Sunset: ${convertTime(sunset, tzOffset)}`;
+
+  document.getElementById("wind-speed").innerText = `Wind Speed: ${Math.round(data.wind.speed)} mph`;
+  document.getElementById("wind-direction").innerText =
+    `Wind Direction: ${degreesToCompass(data.wind.deg)} (${data.wind.deg}°)`;
+
+  const visibilityMiles = (data.visibility ?? 10000) / 1609.34;
+  document.getElementById("vis").innerText = `Visibility: ${visibilityMiles.toFixed(1)} mi`;
+  document.getElementById("tz").innerText = `Time Zone: ${convertTimezone(tzOffset)}`;
+
+  /* Swap the background video to match the current weather. */
   const videoElement = document.getElementById("video_");
   const sourceElement = document.getElementById("source_");
-  
-
-  const sunSetTime = convertTime(weathernow.city.sunset);
-  const sunRiseTime = convertTime(weathernow.city.sunrise);
-
-  sunrise.innerText = `sunrise ${sunRiseTime}`;
-  sunset.innerText = `sunset ${sunSetTime}`;
-
-  windSpeed.innerHTML = `Wind Speed ${data.wind.speed} mph`;
-  windDirection.innerHTML = `Wind Direction ${data.wind.deg} °`;
-
-  visibility.innerHTML = `Visibilty: Clear up to ${data.visibility / 1000} km`
-  timezone.innerHTML = `Time Zone: UTC-${convertTimezone(data.timezone)}`
-
-  console.log("obj",obj);
- 
-/* These lines of code are setting the source of a video element to the URL of a video file based on
-the weather type, loading the video, and playing it. This is used to display a background video that
-corresponds to the current weather conditions. */
-
-  sourceElement.setAttribute("src", obj.video);
-  videoElement.load();
-  videoElement.play();
-
-
-}
-// New function to get the current date and time
-function getCurrentDate() {
-  const currentDate = new Date();
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  return currentDate.toLocaleDateString('en-US', options);
+  if (obj.video && sourceElement.getAttribute("src") !== obj.video) {
+    sourceElement.setAttribute("src", obj.video);
+    videoElement.load();
+    videoElement.play().catch(() => {
+      // Autoplay can be blocked (e.g. iOS low power mode); the background image still shows.
+    });
+  }
 }
 
+// Today's date in the searched city's time zone
+function getCurrentDate(tzOffset = 0) {
+  const cityNow = new Date(Date.now() + tzOffset * 1000);
+  const options = { weekday: "long", year: "numeric", month: "long", day: "numeric", timeZone: "UTC" };
+  return cityNow.toLocaleDateString("en-US", options);
+}
 
-async function updateForecast(inputText) {
+function updateForecast(data) {
   const forecast = document.getElementById("week");
-  const data = await fetchForecastData(inputText);
+  const tzOffset = data.city.timezone;
 
-  const forecastList = data.list.reduce((acc, element, index) => {
-    if (index % 8 === 0) {
-      const day = convertDay(element.dt);
-      const temp = element.main.temp.toPrecision(2);
-      const icon = `https://openweathermap.org/img/wn/${element.weather[0].icon}.png`;
-      const elementHtml = `
-      <div class="weekElem">
-        <h2>${day}</h2>
-        <img src=${icon}>
-        <h4>${temp}°F</h4>
-      </div>
-    `;
-      return acc + elementHtml;
+  // Group the 3-hour entries by local calendar day, then show each day's high and low.
+  const days = new Map();
+  data.list.forEach((element) => {
+    const local = new Date((element.dt + tzOffset) * 1000);
+    const key = local.toISOString().slice(0, 10);
+    const hour = local.getUTCHours();
+    const day = days.get(key) || { dt: element.dt, high: -Infinity, low: Infinity, icon: null, iconDistance: Infinity };
+    day.high = Math.max(day.high, element.main.temp_max);
+    day.low = Math.min(day.low, element.main.temp_min);
+    // Use the icon closest to midday as the day's icon.
+    const distance = Math.abs(hour - 12);
+    if (distance < day.iconDistance) {
+      day.icon = element.weather[0].icon;
+      day.iconDistance = distance;
     }
-    return acc;
-  }, "");
-  forecast.innerHTML = forecastList;
+    days.set(key, day);
+  });
+
+  forecast.innerHTML = [...days.values()].slice(0, 5).map((day) => `
+      <div class="weekElem">
+        <h2>${convertDay(day.dt, tzOffset)}</h2>
+        <img src="https://openweathermap.org/img/wn/${day.icon}.png" alt="">
+        <h4>${Math.round(day.high)}° / ${Math.round(day.low)}°F</h4>
+      </div>
+    `).join("");
 }
 
-function convertTime(dt) {
-  let milliseconds = dt * 1000;
-  const date = new Date(milliseconds);
+// Formats a unix timestamp in the city's local time (tzOffset is seconds from UTC).
+function convertTime(dt, tzOffset = 0) {
+  const date = new Date((dt + tzOffset) * 1000);
 
-  let hours = date.getHours();
-  let minutes = date.getMinutes();
-  let suffix = hours >= 12 ? "pm" : "am";
+  let hours = date.getUTCHours();
+  let minutes = date.getUTCMinutes();
+  const suffix = hours >= 12 ? "pm" : "am";
 
-  hours = hours % 12;
-  hours = hours ? hours : 12;
+  hours = hours % 12 || 12;
   minutes = minutes < 10 ? "0" + minutes : minutes;
 
-  let strTime = hours + ":" + minutes + " " + suffix;
-
-  return strTime;
+  return `${hours}:${minutes} ${suffix}`;
 }
 
-function convertDay(dt) {
-  let milliseconds = dt * 1000;
-  const date = new Date(milliseconds);
-
-  let dayOfWeek = date.toLocaleDateString("en-US", { weekday: "long" });
-
-  return dayOfWeek;
+function convertDay(dt, tzOffset = 0) {
+  const date = new Date((dt + tzOffset) * 1000);
+  return date.toLocaleDateString("en-US", { weekday: "long", timeZone: "UTC" });
 }
-
 
 function convertTimezone(timezoneOffset) {
-  var hours = Math.abs(timezoneOffset) / 3600;
-  return hours;
+  const sign = timezoneOffset < 0 ? "-" : "+";
+  const totalMinutes = Math.abs(timezoneOffset) / 60;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return `UTC${sign}${hours}${minutes ? ":" + String(minutes).padStart(2, "0") : ""}`;
+}
+
+function degreesToCompass(deg) {
+  const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  return directions[Math.round(deg / 45) % 8];
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.innerText = text;
+  return div.innerHTML;
 }
 
 function getWeatherObj(weatherType) {
-  let obj = {
-    classname: "",
-    icon: "",
+  const obj = {
+    className: "",
+    video: "",
   };
 
+  // OpenWeatherMap "main" values: https://openweathermap.org/weather-conditions
   switch (weatherType) {
     case "Clear":
       obj.className = "weather-sunny";
-      obj.icon = "https://openweathermap.org/img/wn/01d.png";
       obj.video = "./weathervids/clearsky.mp4";
       break;
-    case "Partly Sunny": // falls under the description: few clouds
-      obj.className = "weather-partly-sunny";
-      obj.icon = "https://openweathermap.org/img/wn/02d.png";
-      obj.video = "./weathervids/partlysunny.mp4";
     case "Clouds":
       obj.className = "weather-cloudy";
-      obj.icon = "https://openweathermap.org/img/wn/04n.png";
       obj.video = "./weathervids/cloudy.mp4";
       break;
-    case "Rain": // light, moderate, heavy intensity, very heavy, & extreme rain
+    case "Rain":
       obj.className = "weather-rainy";
-      obj.icon = "https://openweathermap.org/img/wn/10d.png";
       obj.video = "./weathervids/rainy.mp4";
       break;
-    case "Freezing Rain": // this might be the same thing as Sleet
-      obj.className = "weather-freezing-rain";
-      obj.icon = "https://openweathermap.org/img/wn/13d.png";
-      obj.video = "./weathervidsfreezerain.mp4";
-    case "Shower Rain": //light & heavy intensity, ragged, shower rain
-      obj.className = "weather-shower-rain";
-      obj.icon = "https://openweathermap.org/img/wn/09d.png";
-      obj.video = "./weathervids/rainy.mp4";
     case "Drizzle":
       obj.className = "weather-drizzle";
-      obj.icon = "https://openweathermap.org/img/wn/09d.png";
       obj.video = "./weathervids/drizzle.mp4";
       break;
     case "Mist":
       obj.className = "weather-mist";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
       obj.video = "./weathervids/haze.mp4";
       break;
     case "Smoke":
       obj.className = "weather-smoke";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
       obj.video = "./weathervids/smoke.mp4";
       break;
     case "Haze":
       obj.className = "weather-hazy";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
       obj.video = "./weathervids/haze.mp4";
       break;
     case "Dust":
+    case "Sand":
       obj.className = "weather-dust";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
       obj.video = "./weathervids/Dust.mp4";
       break;
     case "Fog":
       obj.className = "weather-fog";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
       obj.video = "./weathervids/fog.mp4";
       break;
-    case "Sand":
-      obj.className = "weather-sand";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
-      obj.video = "./weathervids/Dust.mp4";
-      break;
     case "Ash":
-      obj.className = "weather-Ash";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.className = "weather-ash";
       obj.video = "./weathervids/haze.mp4";
       break;
+    case "Squall":
     case "Tornado":
-      obj.className = "weather-Tornado";
-      obj.icon = "https://openweathermap.org/img/wn/50d.png";
+      obj.className = "weather-tornado";
       obj.video = "./weathervids/tornado.mp4";
       break;
     case "Snow":
       obj.className = "weather-snowy";
-      obj.icon = "https://openweathermap.org/img/wn/13d.png";
       obj.video = "./weathervids/snow.mp4";
       break;
     case "Thunderstorm":
       obj.className = "weather-thunderstorm";
-      obj.icon = "https://openweathermap.org/img/wn/11d.png";
-      obj.video = "./weathervids/thunderstorm.mp4";
+      obj.video = "./weathervids/thunderstrom.mp4";
       break;
     default:
       console.log("weatherType not found, no background provided");
   }
   return obj;
 }
+
+// Load the last searched city so the page isn't empty on return visits.
+(function loadLastCity() {
+  let lastCity = null;
+  try {
+    lastCity = localStorage.getItem("lastCity");
+  } catch (e) {
+    // Ignore unavailable storage.
+  }
+  if (lastCity) {
+    document.getElementById("search-bar").value = lastCity;
+    search();
+  }
+})();
