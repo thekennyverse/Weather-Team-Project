@@ -1,12 +1,22 @@
-.week-container {
-  display: flex;
+.background-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
 }
 
-.day {
-  flex: 1;
+.content {
+  position: relative;
+  z-index: 5;
+}
+
+.error {
+  color: #ffb4b4;
   text-align: center;
-  padding: 10px;
- 
+  margin: 0.5em 0;
 }
 
 .weather_dashboard {
@@ -110,11 +120,13 @@ background-color: purple !important; */
 
 .week {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
 .weekElem {
-  margin-right: 4em;
+  margin: 0 2em;
+  text-align: center;
 }
 
 .js-tilt-glare {
@@ -148,7 +160,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 1050px;
+  min-height: 100vh;
   margin: 0;
   font-family: "Open Sans", sans-serif;
   background: url('weathervids/background.jpg') center/cover no-repeat;
@@ -373,7 +385,6 @@ a {
     .forecast_container > div,
     .hourly_container > div {
       padding: 2em;
-      border: 2px solid cyan;
       text-align: center;
     }
   }
@@ -395,5 +406,42 @@ a {
       text-align: center;
       align-items: center;
     }
+  }
+}
+
+/* Phones: stack every card in one column so nothing runs off the screen. */
+@media (max-width: 700px) {
+  .main_container {
+    width: calc(100% - 32px);
+    margin-top: 1.5em !important;
+  }
+  #test-div,
+  .sun_loading {
+    flex-direction: column;
+  }
+  .sun_loading > div,
+  .box_container {
+    margin: 0 !important;
+    width: auto;
+    padding: 0;
+  }
+  .box_card {
+    box-sizing: border-box;
+    height: auto;
+    margin: 1em 0 !important;
+  }
+  .forecast_container {
+    margin: 1em 0;
+  }
+  .forecast_container > div {
+    box-sizing: border-box;
+    margin: 0 !important;
+    padding: 1em;
+  }
+  .weekElem {
+    margin: 0 0.75em;
+  }
+  .weekElem h2 {
+    font-size: 1.1em;
   }
 }
